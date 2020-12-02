@@ -4,7 +4,7 @@ import {Entity, model, property} from '@loopback/repository';
 export class Lists extends Entity {
   @property({
     type: 'string',
-    required: true,
+    // required: true,
     id: 1,
     postgresql: {columnName: 'id', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
