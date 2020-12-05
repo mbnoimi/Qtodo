@@ -6,7 +6,7 @@ export async function main(options: ApplicationConfig = {}) {
   const app = new QtodoApplication(options);
   await app.boot();
   //FIXME: Doesn't work although I didn't modify any model!
-  await app.migrateSchema();
+  // await app.migrateSchema();
   await app.start();
 
   const url = app.restServer.url;
