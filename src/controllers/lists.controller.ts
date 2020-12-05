@@ -4,17 +4,14 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+  patch, post,
   put,
-  del,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {Lists} from '../models';
 import {ListsRepository} from '../repositories';
@@ -22,8 +19,8 @@ import {ListsRepository} from '../repositories';
 export class ListsController {
   constructor(
     @repository(ListsRepository)
-    public listsRepository : ListsRepository,
-  ) {}
+    public listsRepository: ListsRepository,
+  ) { }
 
   @post('/lists', {
     responses: {
@@ -169,5 +166,22 @@ export class ListsController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.listsRepository.deleteById(id);
+  }
+
+  // FIXME: This endpoint doesn't work!
+  // https://loopbackio.slack.com/archives/C01177XQN8N/p1607170208092200
+
+  // @get('/lists/{color}', {
+  @get('/list/{color}', {
+    responses: {
+      '200': {
+        //TODO: Understand how to add json input field in rest explorer
+        description: 'Query all lists by color',
+      },
+    },
+  })
+  async getListByColor(@param.path.string('color') color: number): Promise<number> {
+    //TODO: Learn how to add better query using ORM or Query Builder
+    return this.listsRepository.dataSource.execute("SELECT * FROM public.lists as li WHERE li.color = " + color);
   }
 }
