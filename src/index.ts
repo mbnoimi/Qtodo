@@ -6,6 +6,7 @@ export async function main(options: ApplicationConfig = {}) {
   const app = new QtodoApplication(options);
   await app.boot();
   //FIXME: Doesn't work although I didn't modify any model!
+  // https://github.com/strongloop/loopback-next/issues/6876
   // await app.migrateSchema();
   await app.start();
 

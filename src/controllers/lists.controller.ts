@@ -175,13 +175,13 @@ export class ListsController {
   @get('/list/{color}', {
     responses: {
       '200': {
-        //TODO: Understand how to add json input field in rest explorer
         description: 'Query all lists by color',
       },
     },
   })
-  async getListByColor(@param.path.string('color') color: number): Promise<number> {
+  async getListByColor(@param.path.string('color') color: number): Promise<any> {
     //TODO: Learn how to add better query using ORM or Query Builder
-    return this.listsRepository.dataSource.execute("SELECT * FROM public.lists as li WHERE li.color = " + color);
+    // return this.listsRepository.dataSource.execute("SELECT * FROM public.lists as li WHERE li.color = " + color);
+    return this.listsRepository.findByColor(color);
   }
 }

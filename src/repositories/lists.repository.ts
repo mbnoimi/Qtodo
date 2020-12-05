@@ -19,6 +19,10 @@ export class ListsRepository extends DefaultCrudRepository<
     this.todos = this.createHasManyRepositoryFactoryFor('todos', todosRepositoryGetter,);
     this.registerInclusionResolver('todos', this.todos.inclusionResolver);
   }
-}
 
-//TODO: Learn how to add code right here for customized queries
+  // FIXME: Get all records not a single record
+  //FIXME: How to add @requestBody for this method
+  public findByColor(color: number): Promise<any> {
+    return this.findOne({where: {color}});
+  }
+}
