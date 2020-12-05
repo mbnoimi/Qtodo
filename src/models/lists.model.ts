@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Todos} from './todos.model';
 
 @model({settings: {idInjection: false, postgresql: {schema: 'public', table: 'lists'}}})
 export class Lists extends Entity {
@@ -30,6 +31,14 @@ export class Lists extends Entity {
   })
   color?: number;
 
+  //TODO: Modify this property then activate auto-update
+  // @property({
+  //   type: 'string',
+  //   scale: 0,
+  //   postgresql: {columnName: 'color', dataType: 'character varying', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+  // })
+  // color?: string;
+
   @property({
     type: 'number',
     required: true,
@@ -38,6 +47,8 @@ export class Lists extends Entity {
   })
   status: number;
 
+  @hasMany(() => Todos, {keyTo: 'list_id'})
+  todos: Todos[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

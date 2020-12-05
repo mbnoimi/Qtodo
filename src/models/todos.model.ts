@@ -37,6 +37,10 @@ export class Todos extends Entity {
   })
   listId: string;
 
+  @property({
+    type: 'string',
+  })
+  list_id?: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
