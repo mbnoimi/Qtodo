@@ -20,9 +20,10 @@ export class ListsRepository extends DefaultCrudRepository<
     this.registerInclusionResolver('todos', this.todos.inclusionResolver);
   }
 
-  // FIXME: Get all records not a single record
-  //FIXME: How to add @requestBody for this method
-  public findByColor(color: number): Promise<any> {
-    return this.findOne({where: {color}});
+  public findByColor(color: number) {
+    return this.find({where: {color}});
+    // return this.dataSource.execute(
+    //   "SELECT * FROM public.lists as li WHERE li.color = $1",
+    //   [color]);
   }
 }

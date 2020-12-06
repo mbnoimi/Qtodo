@@ -1,4 +1,5 @@
 import {
+  AnyObject,
   Count,
   CountSchema,
   Filter,
@@ -168,20 +169,18 @@ export class ListsController {
     await this.listsRepository.deleteById(id);
   }
 
-  // FIXME: This endpoint doesn't work!
-  // https://loopbackio.slack.com/archives/C01177XQN8N/p1607170208092200
-
-  // @get('/lists/{color}', {
-  @get('/list/{color}', {
+  @get('/lists-by-color/{color}', {
     responses: {
       '200': {
         description: 'Query all lists by color',
       },
     },
   })
-  async getListByColor(@param.path.string('color') color: number): Promise<any> {
-    //TODO: Learn how to add better query using ORM or Query Builder
-    // return this.listsRepository.dataSource.execute("SELECT * FROM public.lists as li WHERE li.color = " + color);
+  async getListByColor(
+    @param.path.number('color') color: number,
+    @param.filter(Lists, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Lists>,
+  ): Promise<AnyObject> {
     return this.listsRepository.findByColor(color);
   }
 }
